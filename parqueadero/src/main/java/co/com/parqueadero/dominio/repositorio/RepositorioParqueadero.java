@@ -10,4 +10,6 @@ public interface RepositorioParqueadero {
 	
 	public boolean existeParqueo(ParqueaderoEntity parqueaderoEntity);
 	
+	public ParqueaderoEntity consultarParqueoPorPlaca(String placa);
+	
 }

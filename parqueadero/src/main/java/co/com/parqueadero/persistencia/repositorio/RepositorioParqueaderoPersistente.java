@@ -21,7 +21,9 @@ public class RepositorioParqueaderoPersistente implements RepositorioParqueadero
 
 	@Override
 	public void guardarSalidaParqueo(ParqueaderoEntity parqueaderoEntity) {
-		
+		conexionDB.iniciarTransacion();
+		conexionDB.getEntityManager().merge(parqueaderoEntity);
+		conexionDB.finalizarTransacion();
 	}
 
 	@Override
@@ -30,6 +32,13 @@ public class RepositorioParqueaderoPersistente implements RepositorioParqueadero
 		Query query = conexionDB.getEntityManager().createNamedQuery(BUSCAR_PARQUEO_POR_PLACA, ParqueaderoEntity.class);
 		query.setParameter(PLACA, parqueaderoEntity.getPlaca());
 		return query.getSingleResult() != null;
+	}
+
+	@Override
+	public ParqueaderoEntity consultarParqueoPorPlaca(String placa) {
+		Query query = conexionDB.getEntityManager().createNamedQuery(BUSCAR_PARQUEO_POR_PLACA, ParqueaderoEntity.class);
+		query.setParameter(PLACA, placa);
+		return (ParqueaderoEntity) query.getSingleResult();
 	}
 
 }

@@ -38,6 +38,9 @@ public class ParqueaderoEntity {
 	
 	@Column(name="placa")
 	private String placa;
+	
+	public ParqueaderoEntity() {
+	}
 
 	public ParqueaderoEntity(Date fechaIngreso, String tipoVehiculo, Date fechaSalida, double montoCobrado, String estado, String placa) {
 		this.fechaIngreso = fechaIngreso;
@@ -56,4 +59,17 @@ public class ParqueaderoEntity {
 		this.placa = placa;
 	}
 
+	public void setFechaSalida(Date fechaSalida) {
+		this.fechaSalida = fechaSalida;
+	}
+	
+	
+	
+	public void setMontoCobrado(double montoCobrado) {
+		this.montoCobrado = montoCobrado;
+	}
+
+	public double getMontoCobrado() {
+		return montoCobrado;
+	}
 }

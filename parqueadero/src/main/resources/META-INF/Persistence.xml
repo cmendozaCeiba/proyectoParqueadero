@@ -13,8 +13,10 @@
             <property name="javax.persistence.jdbc.user" value=""/>
             <!-- Contraseña de conexión a base de datos. -->
             <property name="javax.persistence.jdbc.password" value=""/>
-            <!-- Indica la estrategia de generación de tablas a utilizar, los diferentes tipos son: - create: Crea la base de datos a partir de las entidades. - drop: Borra la base de datos señalada en las entidades. - drop-and-create: Borra y crea nuevamente la base de datos a partir de las entidades. - none: No realiza ninguna acción sobre la base de datos. Para el ejemplo utilizaremos create. -->
-            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <!-- Indica la estrategia de generación de tablas a utilizar, los diferentes tipos son: - create: Crea la base de datos a partir de las entidades. - drop: Borra la base de datos señalada en las entidades. - drop-and-create: Borra y crea nuevamente la base de datos a partir de las entidades. - none: No realiza ninguna acción sobre la base de datos. -->
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>  
+            
+             <!--  <property name="hibernate.hbm2ddl.auto" value="create"/>  -->
             
             <property name="hibernate.show_sql" value="true"/>
      	</properties>
