@@ -16,7 +16,7 @@
             <!-- Indica la estrategia de generación de tablas a utilizar, los diferentes tipos son: - create: Crea la base de datos a partir de las entidades. - drop: Borra la base de datos señalada en las entidades. - drop-and-create: Borra y crea nuevamente la base de datos a partir de las entidades. - none: No realiza ninguna acción sobre la base de datos. Para el ejemplo utilizaremos create. -->
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
             
-             <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.show_sql" value="true"/>
      	</properties>
      	
      </persistence-unit>

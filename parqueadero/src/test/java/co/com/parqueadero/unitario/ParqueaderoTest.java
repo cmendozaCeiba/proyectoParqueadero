@@ -2,12 +2,12 @@ package co.com.parqueadero.unitario;
 
 import org.junit.Assert;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
 
 import java.util.Date;
 
 import co.com.parqueadero.dominio.repositorio.RepositorioParqueadero;
 import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
+import co.com.parqueadero.persistencia.repositorio.RepositorioParqueaderoPersistente;
 
 public class ParqueaderoTest {
 	
@@ -18,12 +18,14 @@ public class ParqueaderoTest {
 	
 	@Test
 	public void guardarParqueoMoto() {
-		//
-		RepositorioParqueadero repositorioParqueo = mock(RepositorioParqueadero.class);
+		// arrange
+		RepositorioParqueadero repositorioParqueo = new RepositorioParqueaderoPersistente();
 		ParqueaderoEntity parqueaderoEntity = new ParqueaderoEntity(new Date(),TIPO_VEHICULO_MOTO, null, 0.0, ESTADO_INGRESO, PLACA);
 		
+		// act
 		repositorioParqueo.guardarIngresoParqueo(parqueaderoEntity);
 		
+		// Assert
 		Assert.assertTrue(repositorioParqueo.existeParqueo(parqueaderoEntity));
 	}
 }
