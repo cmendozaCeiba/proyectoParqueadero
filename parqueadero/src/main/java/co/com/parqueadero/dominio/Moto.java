@@ -7,8 +7,12 @@ public class Moto extends Vehiculo{
 	 */
 	private static final long serialVersionUID = 8322905263810883341L;
 
+	private double cilindraje;
+	
 	public Moto(String placa, double cilindraje) {
-		super(placa, cilindraje);
+		super(placa);
+		
+		this.cilindraje = cilindraje;
 	}
 	
 }

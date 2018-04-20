@@ -10,11 +10,13 @@ public class Vehiculo implements Serializable{
 	private static final long serialVersionUID = 25254764857630978L;
 	
 	protected String placa;
-	protected double cilindraje;
 	
-	public Vehiculo(String placa, double cilindraje) {
+	public Vehiculo(String placa) {
 		this.placa = placa;
-		this.cilindraje = cilindraje;
+	}
+
+	public String getPlaca() {
+		return placa;
 	}
 
 	
