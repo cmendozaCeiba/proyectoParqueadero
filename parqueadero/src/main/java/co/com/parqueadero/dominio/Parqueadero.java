@@ -19,7 +19,9 @@ public class Parqueadero {
 	}
 	
 	public void agregarIngreso(Vehiculo vehiculo) {
+		
 		ingresos.add(vehiculo);
+
 	}
 	
 	public void agregarSalida(Vehiculo vehiculo) {

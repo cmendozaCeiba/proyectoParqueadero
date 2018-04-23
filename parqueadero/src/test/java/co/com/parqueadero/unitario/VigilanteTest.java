@@ -2,6 +2,8 @@ package co.com.parqueadero.unitario;
 
 import static org.junit.Assert.fail;
 
+import java.time.LocalDateTime;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,15 +24,15 @@ public class VigilanteTest {
 	
 	@Before
 	public void setUp() {
-		vigilante = Vigilante.getInstance();
+		vigilante = new Vigilante();
 	}
 	
 	@Test
 	public void ingresarVehiculoMotoMayorCapacidadTest() {
 		try {
 			
-			for(int i=0;i<10;i++) {
-				Vehiculo vehiculo = new Moto(PLACA, CILINDRAJE);
+			for(int i=0;i<11;i++) {
+				Vehiculo vehiculo = new Moto(PLACA, CILINDRAJE,0.0, LocalDateTime.now(), null);
 				
 				vigilante.ingresarVehiculo(vehiculo);
 			}
@@ -46,9 +48,9 @@ public class VigilanteTest {
 	@Test
 	public void ingresarVehiculoCarroMayorCapacidadTest() {
 		try {
-			
-			for(int i=0;i<20;i++) {
-				Vehiculo vehiculo = new Carro(PLACA);
+
+			for(int i=0;i<21;i++) {
+				Vehiculo vehiculo = new Carro(PLACA, 0.0, LocalDateTime.now(), null);
 				
 				vigilante.ingresarVehiculo(vehiculo);
 			}

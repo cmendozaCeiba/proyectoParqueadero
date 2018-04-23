@@ -72,4 +72,8 @@ public class ParqueaderoEntity {
 	public double getMontoCobrado() {
 		return montoCobrado;
 	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 }

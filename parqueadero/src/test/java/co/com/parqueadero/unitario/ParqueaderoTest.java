@@ -39,6 +39,7 @@ public class ParqueaderoTest {
 		
 		ParqueaderoEntity parqueaderoEntity = repositorioParqueo.consultarParqueoPorPlaca(PLACA);
 		parqueaderoEntity.setFechaSalida(new Date());
+		parqueaderoEntity.setEstado("S");
 		parqueaderoEntity.setMontoCobrado(5000.0);
 		
 		repositorioParqueo.guardarSalidaParqueo(parqueaderoEntity);
