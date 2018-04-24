@@ -1,11 +1,13 @@
 apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'war'
-apply plugin: 'eclipse-wtp'
 apply plugin: 'jacoco'
+apply plugin: 'eclipse'
 
 sourceCompatibility = 1.8
-version = '1.0'
+
+jar {
+	baseName = 'parqueadero'
+	version = '1.0'
+}
 
 repositories {
     mavenCentral()
@@ -14,6 +16,9 @@ repositories {
 dependencies {
 	  compile 'com.h2database:h2:1.4.194'	
 	  compile 'org.hibernate:hibernate-core:5.2.9.Final'	
+	  compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.1.RELEASE'
+	  compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.7'
+	  compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 	      
 	  testCompile 'junit:junit:4.12'
 	  testCompile 'org.mockito:mockito-all:1.10.19'

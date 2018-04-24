@@ -17,5 +17,11 @@ public class Constante {
 	
 	public static final double VALOR_HORA_MOTO = 500D;
 	public static final double VALOR_DIA_MOTO = 4000D;
+	public static final double VALOR_DIA_CARRO = 8000D;
+	public static final double VALOR_HORA_CARRO = 1000D;
+	
+	public static final int ZERO = 0;
+	public static final double CILINDRAJE = 500;
+	public static final int COBRO_POR_CILINDRAJE = 2000;
 	
 }

@@ -12,7 +12,8 @@ import javax.persistence.NamedQuery;
 
 
 @Entity(name ="parqueadero")
-@NamedQueries(@NamedQuery(name="ParqueaderoEntity.buscarPorPlaca", query="SELECT p FROM parqueadero p WHERE p.placa = :placa"))
+@NamedQueries({@NamedQuery(name="ParqueaderoEntity.buscarPorPlaca", query="SELECT p FROM parqueadero p WHERE p.placa = :placa"),
+			@NamedQuery(name="ParqueaderoEntity.listarParqueo", query="SELECT p FROM parqueadero p")})
 public class ParqueaderoEntity {
 	
 	@Id

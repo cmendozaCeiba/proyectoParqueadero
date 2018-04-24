@@ -30,5 +30,16 @@ public class Vehiculo implements Serializable{
 		return fechaIngreso;
 	}
 
+	public void setMontoCobrar(double montoCobrar) {
+		this.montoCobrar = montoCobrar;
+	}
+
+	public LocalDateTime getFechaSalida() {
+		return fechaSalida;
+	}
+
+	public double getMontoCobrar() {
+		return montoCobrar;
+	}
 	
 }

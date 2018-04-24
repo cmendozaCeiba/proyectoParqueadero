@@ -1,5 +1,7 @@
 package co.com.parqueadero.persistencia.repositorio;
 
+import java.util.List;
+
 import javax.persistence.Query;
 
 import co.com.parqueadero.dominio.repositorio.RepositorioParqueadero;
@@ -9,6 +11,7 @@ import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
 public class RepositorioParqueaderoPersistente implements RepositorioParqueadero{
 
 	private static final String BUSCAR_PARQUEO_POR_PLACA = "ParqueaderoEntity.buscarPorPlaca";
+	private static final String LISTAR_PARQUEO = "ParqueaderoEntity.listarParqueo";
 	private static final String PLACA = "placa";
 	ConexionDB conexionDB = new ConexionDB();
 	
@@ -39,6 +42,12 @@ public class RepositorioParqueaderoPersistente implements RepositorioParqueadero
 		Query query = conexionDB.getEntityManager().createNamedQuery(BUSCAR_PARQUEO_POR_PLACA, ParqueaderoEntity.class);
 		query.setParameter(PLACA, placa);
 		return (ParqueaderoEntity) query.getSingleResult();
+	}
+
+	@Override
+	public List<ParqueaderoEntity> listarParqueos() {
+		Query query = conexionDB.getEntityManager().createNamedQuery(LISTAR_PARQUEO);
+		return query.getResultList();
 	}
 
 }
