@@ -77,4 +77,12 @@ public class ParqueaderoEntity {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	
+	public String getTipoVehiculo() {
+		return tipoVehiculo;
+	}
+	
+	public Date getFechaIngreso() {
+		return fechaIngreso;
+	}
 }

@@ -4,6 +4,6 @@ import co.com.parqueadero.dominio.Vehiculo;
 
 public interface VehiculoMetodoFactoria {
 
-	public Vehiculo crearVehiculo(String cilindraje);
+	public Vehiculo crearVehiculo(String cilindraje, Vehiculo vehiculo);
 	
 }
