@@ -78,6 +78,10 @@ public class ParqueaderoEntity {
 		this.estado = estado;
 	}
 	
+	public String getEstado() {
+		return estado;
+	}
+	
 	public String getTipoVehiculo() {
 		return tipoVehiculo;
 	}

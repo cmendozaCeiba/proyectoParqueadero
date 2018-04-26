@@ -1,8 +1,10 @@
 package co.com.parqueadero.aplicacion.rest;
 
-import java.time.LocalDateTime;
 import java.util.Properties;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +17,7 @@ import co.com.parqueadero.dominio.Vigilante;
 import co.com.parqueadero.dominio.factoria.VehiculoFactoria;
 import co.com.parqueadero.dominio.factoria.VehiculoMetodoFactoria;
 
+@CrossOrigin(origins ="http://localhost:4200")
 @RestController
 public class IngresoVehiculoController {
 	
@@ -24,15 +27,16 @@ public class IngresoVehiculoController {
 	@RequestMapping(value="/ingresarVehiculo",
 			consumes="application/json",
 			method = RequestMethod.POST)
-	public void ingresarVehiculo(@RequestBody String json) {
+	public ResponseEntity<?> ingresarVehiculo(@RequestBody String json) {
 		
 		Gson gson = new Gson();
 		Properties properties  = gson.fromJson(json, Properties.class);
 		Vehiculo vehiculo = gson.fromJson(json, Vehiculo.class);
 		
 		vehiculo = vehiculoFactoria.crearVehiculo(properties.getProperty("cilindraje"), vehiculo);
-		vehiculo.setFechaIngreso(LocalDateTime.now());
 		
 		vigilante.ingresarVehiculo(vehiculo);
+		
+		return new ResponseEntity<>(vehiculo, HttpStatus.OK);
 	}
 }
