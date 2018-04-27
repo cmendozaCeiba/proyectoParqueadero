@@ -16,6 +16,7 @@
     <th>Tipo Vehiculo</th>
     <th>Fecha entrada</th>
     <th>Estado</th>
+    <th>Opción</th>
   </tr>
 </thead>
 <tbody>
@@ -25,6 +26,7 @@
     <td>{{parqueo.fechaIngreso}}</td>
     <td> {{parqueo.estado}}
     </td>
+    <td><button (click)="salidaVehiculo(parqueo)" class="btn btn-secondary">Salida</button></td>
   </tr>
 </tbody>
 </table>

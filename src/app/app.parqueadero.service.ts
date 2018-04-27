@@ -21,7 +21,12 @@ export class ParqueaderoService{
     }
 
     crearParqueo(parqueadero: Parqueadero): Observable<Object>{
+       
         return this.http.post(this.url+'/ingresarVehiculo', parqueadero);
+    }
+
+    salidaParqueo(parqueadero: Parqueadero): Observable<Object>{
+        return this.http.patch(this.url+'/salidaVehiculo', parqueadero);
     }
 
     private handleError (error: Response | any) {

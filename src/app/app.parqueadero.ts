@@ -3,4 +3,8 @@ export class Parqueadero{
     montoCobrado: number;
     tipoVehiculo: string;
     fechaIngreso: string;
+    cilindraje:number;
+    estado:string;
+    fechaSalida:string;
+    
 }

@@ -36,4 +36,10 @@ export class AppComponent implements OnInit{
     .subscribe(data => console.log(data), error => console.log(error));
   }
 
+  public salidaVehiculo(parqueoSalida: Parqueadero){
+    console.log(parqueoSalida);
+    this.parqueaderoService.salidaParqueo(parqueoSalida)
+    .subscribe(data => console.log(data), error => console.log(error));
+  }
+
 }
