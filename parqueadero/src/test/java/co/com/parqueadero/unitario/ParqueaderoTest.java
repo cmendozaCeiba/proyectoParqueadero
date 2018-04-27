@@ -3,6 +3,7 @@ package co.com.parqueadero.unitario;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import co.com.parqueadero.dominio.repositorio.RepositorioParqueadero;
@@ -21,7 +22,7 @@ public class ParqueaderoTest {
 	@Test
 	public void guardarParqueoMoto() {
 		// arrange
-		ParqueaderoEntity parqueaderoEntity = new ParqueaderoEntity(new Date(),TIPO_VEHICULO_MOTO, null, 0.0, ESTADO_INGRESO, PLACA_GUARDAR);
+		ParqueaderoEntity parqueaderoEntity = new ParqueaderoEntity(LocalDateTime.now(),TIPO_VEHICULO_MOTO, null, 0.0, ESTADO_INGRESO, PLACA_GUARDAR);
 		
 		// act
 		repositorioParqueo.guardarIngresoParqueo(parqueaderoEntity);
@@ -32,13 +33,13 @@ public class ParqueaderoTest {
 	
 	@Test
 	public void guardarSalidaParqueo() {
-		ParqueaderoEntity parqueaderoGuardarEntity = new ParqueaderoEntity(new Date(),TIPO_VEHICULO_MOTO, null, 0.0, ESTADO_INGRESO, PLACA);
+		ParqueaderoEntity parqueaderoGuardarEntity = new ParqueaderoEntity(LocalDateTime.now(),TIPO_VEHICULO_MOTO, null, 0.0, ESTADO_INGRESO, PLACA);
 		
 		// act
 		repositorioParqueo.guardarIngresoParqueo(parqueaderoGuardarEntity);
 		
 		ParqueaderoEntity parqueaderoEntity = repositorioParqueo.consultarParqueoPorPlaca(PLACA);
-		parqueaderoEntity.setFechaSalida(new Date());
+		parqueaderoEntity.setFechaSalida(LocalDateTime.now());
 		parqueaderoEntity.setEstado("S");
 		parqueaderoEntity.setMontoCobrado(5000.0);
 		

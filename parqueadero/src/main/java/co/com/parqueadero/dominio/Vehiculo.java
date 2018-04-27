@@ -3,6 +3,8 @@ package co.com.parqueadero.dominio;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Vehiculo implements Serializable{
 
 	/**
@@ -21,11 +23,12 @@ public class Vehiculo implements Serializable{
 		this.fechaIngreso = fechaIngreso;
 		this.fechaSalida = fechaSalida;
 	}
-
+	
 	public String getPlaca() {
 		return placa;
 	}
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public LocalDateTime getFechaIngreso() {
 		return fechaIngreso;
 	}
@@ -34,8 +37,13 @@ public class Vehiculo implements Serializable{
 		this.montoCobrar = montoCobrar;
 	}
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public LocalDateTime getFechaSalida() {
 		return fechaSalida;
+	}
+	
+	public void setFechaSalida(LocalDateTime fechaSalida) {
+		this.fechaSalida = fechaSalida;
 	}
 
 	public double getMontoCobrar() {

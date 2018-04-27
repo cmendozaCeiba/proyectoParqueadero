@@ -1,7 +1,7 @@
 package co.com.parqueadero.dominio;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import co.com.parqueadero.dominio.regla.CalcularValorAPagar;
@@ -9,6 +9,7 @@ import co.com.parqueadero.dominio.regla.ReglaVigilante;
 import co.com.parqueadero.dominio.regla.ValidarPlaca;
 import co.com.parqueadero.dominio.regla.VerificarDisponibilidad;
 import co.com.parqueadero.dominio.repositorio.RepositorioParqueadero;
+import co.com.parqueadero.persistencia.builder.VehiculoBuilder;
 import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
 import co.com.parqueadero.persistencia.repositorio.RepositorioParqueaderoPersistente;
 
@@ -25,20 +26,26 @@ public class Vigilante {
 	}
 
 	public void ingresarVehiculo(Vehiculo vehiculoIngresar) {
+		
 		reglasIngreso.stream().forEach(regla -> regla.ejecutarRegla(vehiculoIngresar));
 		Parqueadero.getInstance().agregarIngreso(vehiculoIngresar);
-		repositorioParqueo.guardarIngresoParqueo(convertirParqueaderoEntity(vehiculoIngresar));
+		vehiculoIngresar.setFechaIngreso(LocalDateTime.now());
+		repositorioParqueo.guardarIngresoParqueo(VehiculoBuilder.convertirParqueaderoEntity(vehiculoIngresar, "I"));
+		
 	}
 	
 	public void salidaVehiculo(Vehiculo vehiculoSalida) {
+		
 		reglasSalida.stream().forEach(reglaSalida -> reglaSalida.ejecutarRegla(vehiculoSalida));
 		Parqueadero.getInstance().agregarSalida(vehiculoSalida);
-		// Temrinar la paete del guardado de salida
-		repositorioParqueo.guardarSalidaParqueo(null);
-	}
-
-	private ParqueaderoEntity convertirParqueaderoEntity(Vehiculo vehiculo) {
-		return new ParqueaderoEntity(new Date(), vehiculo.getClass().getSimpleName(), null, 0.0, "I", vehiculo.getPlaca());
+		
+		ParqueaderoEntity parqueoSalida = repositorioParqueo.consultarParqueoPorPlaca(vehiculoSalida.getPlaca());
+		
+		parqueoSalida.setMontoCobrado(vehiculoSalida.getMontoCobrar());
+		parqueoSalida.setFechaSalida(vehiculoSalida.getFechaSalida());
+		parqueoSalida.setEstado("S");
+		
+		repositorioParqueo.guardarSalidaParqueo(parqueoSalida);
 	}
 	
 }
