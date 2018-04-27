@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Service;
+
 import co.com.parqueadero.dominio.repositorio.RepositorioParqueadero;
 import co.com.parqueadero.persistencia.conexion.ConexionDB;
 import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
 
+@Service
 public class RepositorioParqueaderoPersistente implements RepositorioParqueadero{
 
 	private static final String BUSCAR_PARQUEO_POR_PLACA = "ParqueaderoEntity.buscarPorPlaca";

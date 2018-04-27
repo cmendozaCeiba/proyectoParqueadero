@@ -2,6 +2,7 @@ package co.com.parqueadero.aplicacion.rest;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,14 +15,15 @@ import com.google.gson.Gson;
 
 import co.com.parqueadero.dominio.Vehiculo;
 import co.com.parqueadero.dominio.Vigilante;
-import co.com.parqueadero.dominio.factoria.VehiculoFactoria;
 import co.com.parqueadero.dominio.factoria.VehiculoMetodoFactoria;
 
 @CrossOrigin(origins ="http://localhost:4200")
 @RestController
 public class IngresoVehiculoController {
 	
-	 VehiculoMetodoFactoria vehiculoFactoria = new VehiculoFactoria();
+	@Autowired
+	VehiculoMetodoFactoria vehiculoFactoria;
+	
 	 Vigilante vigilante = new Vigilante();
 	
 	@RequestMapping(value="/ingresarVehiculo",

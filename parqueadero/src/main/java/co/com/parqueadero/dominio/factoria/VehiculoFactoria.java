@@ -1,9 +1,12 @@
 package co.com.parqueadero.dominio.factoria;
 
+import org.springframework.stereotype.Service;
+
 import co.com.parqueadero.dominio.Carro;
 import co.com.parqueadero.dominio.Moto;
 import co.com.parqueadero.dominio.Vehiculo;
 
+@Service
 public class VehiculoFactoria implements VehiculoMetodoFactoria{
 
 	@Override
