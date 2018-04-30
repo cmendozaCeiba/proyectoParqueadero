@@ -43,7 +43,7 @@ public class CalcularValorAPagar implements ReglaVigilante{
 			cantidadPago = cantidadPago + (horasRestante * valorHoraVehiculo);
 			
 		}else {
-			cantidadPago = horas*valorHoraVehiculo;
+			cantidadPago = horas > ZERO ? horas*valorHoraVehiculo : valorHoraVehiculo;
 		}
 			
 		

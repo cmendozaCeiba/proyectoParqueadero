@@ -27,7 +27,6 @@ public class RepositorioParqueaderoPersistente implements RepositorioParqueadero
 
 	@Override
 	public void guardarSalidaParqueo(ParqueaderoEntity parqueaderoEntity) {
-		conexionDB.iniciarTransacion();
 		conexionDB.getEntityManager().merge(parqueaderoEntity);
 		conexionDB.finalizarTransacion();
 	}
@@ -48,7 +47,7 @@ public class RepositorioParqueaderoPersistente implements RepositorioParqueadero
 	}
 
 	@Override
-	public List<ParqueaderoEntity> listarParqueos() {
+	public synchronized List<ParqueaderoEntity> listarParqueos() {
 		Query query = conexionDB.getEntityManager().createNamedQuery(LISTAR_PARQUEO);
 		return query.getResultList();
 	}
