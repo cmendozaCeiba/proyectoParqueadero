@@ -1,15 +1,34 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div class="container">
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <div>
-    <input  [(ngModel)]="parqueoAgregar.placa" placeholder="Ingrese Placa" />
-    <input [(ngModel)]="parqueoAgregar.cilindraje" placeholder="Ingrese Cilindraje" />
-    <button (click)="guardarIngreso($event)" type="button" class="btn btn-primary">Guardar Ingreso</button>
+<form [formGroup]="formGroup" (ngSubmit)="guardarIngreso(formGroup.value)">
+  <div class="form-group">
+    <label for="placa">Placa:
+      <input placeholder="Ingrese Placa" formControlName="placa" class="form-control">
+    </label>
   </div>
+
+  <div class="form-group">
+    <label for="cilindraje">Cilindraje:
+      <input placeholder="Ingrese Cilindraje" formControlName="cilindraje" class="form-control">
+    </label>
+  </div>
+
+  <input type="submit" value="Guardar Ingreso" class="btn btn-primary">
+</form>
+
+<br/>
+
+<div *ngIf="alert" class="alert alert-success">
+    <strong>Entrada Registrada!</strong> para vehiculo con placa {{parqueoAgregar.placa}}.
 </div>
+
+<br/>
+
 <table class="table">
+
 <thead>
   <tr>
     <th>Placa</th>
@@ -19,6 +38,7 @@
     <th>Opción</th>
   </tr>
 </thead>
+
 <tbody>
   <tr *ngFor="let parqueo of parqueos" >
     <td>{{parqueo.placa}}</td>
@@ -29,5 +49,8 @@
     <td><button (click)="salidaVehiculo(parqueo)" class="btn btn-secondary">Salida</button></td>
   </tr>
 </tbody>
+
 </table>
+
+</div>
 
