@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.parqueadero.dominio.repositorio.RepositorioParqueadero;
 import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
 
-@CrossOrigin(origins ="http://localhost:4200")
+@CrossOrigin(origins ="*")
 @RestController
 public class ConsultaVehiculoController {
 

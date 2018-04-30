@@ -17,7 +17,7 @@ import co.com.parqueadero.dominio.Vehiculo;
 import co.com.parqueadero.dominio.Vigilante;
 import co.com.parqueadero.dominio.factoria.VehiculoMetodoFactoria;
 
-@CrossOrigin(origins ="http://localhost:4200")
+@CrossOrigin(origins ="*")
 @RestController
 public class IngresoVehiculoController {
 	
