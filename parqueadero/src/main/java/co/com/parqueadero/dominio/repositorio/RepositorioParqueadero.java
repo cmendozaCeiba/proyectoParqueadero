@@ -6,9 +6,9 @@ import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
 
 public interface RepositorioParqueadero {
 
-	public void guardarIngresoParqueo(ParqueaderoEntity parqueaderoEntity);
+	public ParqueaderoEntity guardarIngresoParqueo(ParqueaderoEntity parqueaderoEntity);
 	
-	public void guardarSalidaParqueo(ParqueaderoEntity parqueaderoEntity);
+	public ParqueaderoEntity guardarSalidaParqueo(ParqueaderoEntity parqueaderoEntity);
 	
 	public boolean existeParqueo(ParqueaderoEntity parqueaderoEntity);
 	

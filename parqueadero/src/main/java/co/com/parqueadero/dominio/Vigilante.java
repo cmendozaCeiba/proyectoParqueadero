@@ -17,6 +17,7 @@ public class Vigilante {
 	
 	private List<ReglaVigilante> reglasIngreso = new ArrayList<>();
 	private List<ReglaVigilante> reglasSalida = new ArrayList<>();
+	
 	private RepositorioParqueadero repositorioParqueo = new RepositorioParqueaderoPersistente();
 	
 	public Vigilante() {
@@ -27,7 +28,7 @@ public class Vigilante {
 
 	public void ingresarVehiculo(Vehiculo vehiculoIngresar) {
 		
-		reglasIngreso.stream().forEach(regla -> regla.ejecutarRegla(vehiculoIngresar));
+		reglasIngreso.forEach(regla -> regla.ejecutarRegla(vehiculoIngresar));
 		Parqueadero.getInstance().agregarIngreso(vehiculoIngresar);
 		vehiculoIngresar.setFechaIngreso(LocalDateTime.now());
 		repositorioParqueo.guardarIngresoParqueo(VehiculoBuilder.convertirParqueaderoEntity(vehiculoIngresar, "I"));
@@ -36,7 +37,7 @@ public class Vigilante {
 	
 	public void salidaVehiculo(Vehiculo vehiculoSalida) {
 		
-		reglasSalida.stream().forEach(reglaSalida -> reglaSalida.ejecutarRegla(vehiculoSalida));
+		reglasSalida.forEach(reglaSalida -> reglaSalida.ejecutarRegla(vehiculoSalida));
 		Parqueadero.getInstance().agregarSalida(vehiculoSalida);
 		
 		ParqueaderoEntity parqueoSalida = repositorioParqueo.consultarParqueoPorPlaca(vehiculoSalida.getPlaca());

@@ -19,16 +19,20 @@ public class RepositorioParqueaderoPersistente implements RepositorioParqueadero
 	ConexionDB conexionDB = new ConexionDB();
 	
 	@Override
-	public void guardarIngresoParqueo(ParqueaderoEntity parqueaderoEntity) {
+	public ParqueaderoEntity guardarIngresoParqueo(ParqueaderoEntity parqueaderoEntity) {
 		conexionDB.iniciarTransacion();
 		conexionDB.getEntityManager().persist(parqueaderoEntity);
 		conexionDB.finalizarTransacion();
+		return parqueaderoEntity;
 	}
 
 	@Override
-	public void guardarSalidaParqueo(ParqueaderoEntity parqueaderoEntity) {
+	public ParqueaderoEntity guardarSalidaParqueo(ParqueaderoEntity parqueaderoEntity) {
+		conexionDB.iniciarTransacion();
 		conexionDB.getEntityManager().merge(parqueaderoEntity);
 		conexionDB.finalizarTransacion();
+		
+		return parqueaderoEntity;
 	}
 
 	@Override
