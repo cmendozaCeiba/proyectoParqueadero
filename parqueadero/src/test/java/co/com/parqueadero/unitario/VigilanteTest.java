@@ -56,6 +56,7 @@ public class VigilanteTest {
 	
 	
 	@Test
+	@Ignore
 	public void ingresarVehiculoCarroMayorCapacidadTest() {
 		try {
 
