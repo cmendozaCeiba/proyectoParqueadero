@@ -1,55 +1,49 @@
 package co.com.parqueadero.aplicacion.rest.unitaria;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import co.com.parqueadero.aplicacion.rest.ConsultaVehiculoController;
 import co.com.parqueadero.dominio.repositorio.RepositorioParqueadero;
 import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value= ConsultaVehiculoController.class, secure = false)
 public class ConsultarVehiculoControllerTest {
-	
-	private String URI = "/listarVehiculos";
 	
 	@Mock
 	private RepositorioParqueadero repositorioParqueadero;
 	
-	@Autowired
-	private MockMvc mockMvc;
+	@InjectMocks
+	private ConsultaVehiculoController consultarVehiculoController;
 	
 	
 	@Test
-	public void consultarVehiculos() throws Exception {
-		
+	public void consultarVehiculosTest() throws Exception {
 		ParqueaderoEntity parqueaderoEntity = new ParqueaderoEntity(LocalDateTime.of(2018,04,28, 10,15),"Carro", null, 0.0, "I", "FRE378");
-		List<ParqueaderoEntity> listaParqueos = new ArrayList<>();
-		listaParqueos.add(parqueaderoEntity);
-		Mockito.when(repositorioParqueadero.listarParqueos()).thenReturn(listaParqueos);
+		List<ParqueaderoEntity> parqueos = new ArrayList<>();
+		parqueos.add(parqueaderoEntity);
+		when(repositorioParqueadero.listarParqueos()).thenReturn(parqueos);
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(URI).accept(MediaType.APPLICATION_JSON);
+		ResponseEntity<?> listarVehiculos = consultarVehiculoController.listarVehiculos();
 		
-		MvcResult resul =  mockMvc.perform(requestBuilder).andReturn();
+		verify(repositorioParqueadero, atLeast(1)).listarParqueos();
 		
-		String expect = "{tipoVehiculo:Carro}";
-		
-		Assert.assertTrue(resul.getResponse().getContentAsString().contains(expect));
+		assertNotNull(listarVehiculos.getBody());
+		assertEquals(listarVehiculos.getStatusCode(), HttpStatus.OK);
 	}
-	
 }

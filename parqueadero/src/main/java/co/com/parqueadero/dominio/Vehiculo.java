@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+@JsonRootName(value = "vehiculo")
 public class Vehiculo implements Serializable{
 
 	/**
@@ -12,9 +15,13 @@ public class Vehiculo implements Serializable{
 	 */
 	private static final long serialVersionUID = 25254764857630978L;
 	
-	protected String placa;
+	@JsonProperty
+	private String placa;
+	@JsonProperty 
 	private double montoCobrar;
+	@JsonProperty 
 	private LocalDateTime fechaIngreso;
+	@JsonProperty 
 	private LocalDateTime fechaSalida;
 	
 	public Vehiculo(String placa, double montoCobrar, LocalDateTime fechaIngreso, LocalDateTime fechaSalida) {
