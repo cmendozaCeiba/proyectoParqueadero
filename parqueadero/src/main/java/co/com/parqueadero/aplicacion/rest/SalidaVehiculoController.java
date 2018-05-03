@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.parqueadero.dominio.ParqueaderoApi;
 import co.com.parqueadero.dominio.Vehiculo;
 import co.com.parqueadero.dominio.Vigilante;
 import co.com.parqueadero.dominio.factoria.VehiculoMetodoFactoria;
-import co.com.parqueadero.persistencia.builder.VehiculoBuilder;
+import co.com.parqueadero.persistencia.convertidor.ParqueaderoEntityAParqueaderoApi;
 import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
 
 @CrossOrigin(origins ="*")
@@ -23,16 +24,20 @@ public class SalidaVehiculoController {
 
 	@Autowired
 	VehiculoMetodoFactoria vehiculoFactoria;
+	
+	@Autowired
+	private ParqueaderoEntityAParqueaderoApi parqueaderoEntityAParqueaderoApi;
+	
 	 Vigilante vigilante = new Vigilante();
 	
 	@RequestMapping(value="/salidaVehiculo", 
 				method=RequestMethod.PATCH)
-	public ResponseEntity<?> salidaVehiculo(@RequestBody ParqueaderoEntity parqueoSalida){
+	public ResponseEntity<?> salidaVehiculo(@RequestBody ParqueaderoApi parqueaderoApi){
 		
-		Vehiculo vehiculoSalida = vehiculoFactoria.crearVehiculo(parqueoSalida.getCilindraje()>0 ? String.valueOf(parqueoSalida.getCilindraje()) : null, VehiculoBuilder.convertirVehiculo(parqueoSalida));
+		Vehiculo vehiculoSalida = vehiculoFactoria.crearVehiculo(parqueaderoApi);
 		vehiculoSalida.setFechaSalida(LocalDateTime.now());
-		vigilante.salidaVehiculo(vehiculoSalida);
+		ParqueaderoEntity parquaederoEntity = vigilante.salidaVehiculo(vehiculoSalida);
 		
-		return new ResponseEntity<>(vehiculoSalida, HttpStatus.OK);
+		return new ResponseEntity<>(parqueaderoEntityAParqueaderoApi.convert(parquaederoEntity), HttpStatus.OK);
 	}
 }

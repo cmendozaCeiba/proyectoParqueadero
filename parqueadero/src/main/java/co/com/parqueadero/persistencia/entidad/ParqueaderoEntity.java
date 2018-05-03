@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 
 @Entity(name ="parqueadero")
 @NamedQueries({@NamedQuery(name="ParqueaderoEntity.buscarPorPlaca", query="SELECT p FROM parqueadero p WHERE p.placa = :placa"),
@@ -22,8 +20,6 @@ public class ParqueaderoEntity {
 	@GeneratedValue
 	private BigDecimal id;
 	
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name="fechaingreso",
 			nullable=false)
 	private LocalDateTime fechaIngreso;
@@ -59,6 +55,14 @@ public class ParqueaderoEntity {
 		this.placa = placa;
 	}
 
+	public BigDecimal getId() {
+		return id;
+	}
+	
+	public void setId(BigDecimal id) {
+		this.id = id;
+	}
+	
 	public String getPlaca() {
 		return placa;
 	}

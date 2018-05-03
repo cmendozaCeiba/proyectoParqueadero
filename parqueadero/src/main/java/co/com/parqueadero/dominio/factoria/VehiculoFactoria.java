@@ -4,17 +4,18 @@ import org.springframework.stereotype.Service;
 
 import co.com.parqueadero.dominio.Carro;
 import co.com.parqueadero.dominio.Moto;
+import co.com.parqueadero.dominio.ParqueaderoApi;
 import co.com.parqueadero.dominio.Vehiculo;
 
 @Service
 public class VehiculoFactoria implements VehiculoMetodoFactoria{
 
 	@Override
-	public Vehiculo crearVehiculo(String cilindraje, Vehiculo vehiculo) {
-		if(cilindraje!=null && !cilindraje.isEmpty())
-			return new Moto(vehiculo.getPlaca(),vehiculo.getMontoCobrar(),Double.parseDouble(cilindraje),vehiculo.getFechaIngreso(),vehiculo.getFechaSalida());
+	public Vehiculo crearVehiculo(ParqueaderoApi parqueaderoApi) {
+		if(parqueaderoApi.getCilindraje()>0)
+			return new Moto(parqueaderoApi.getPlaca(),parqueaderoApi.getMontoCobrado(),parqueaderoApi.getCilindraje(),parqueaderoApi.getFechaIngreso(),parqueaderoApi.getFechaSalida());
 		else
-			return new Carro(vehiculo.getPlaca(), vehiculo.getMontoCobrar(), vehiculo.getFechaIngreso(), vehiculo.getFechaSalida());
+			return new Carro(parqueaderoApi.getPlaca(), parqueaderoApi.getMontoCobrado(), parqueaderoApi.getFechaIngreso(), parqueaderoApi.getFechaSalida());
 	}
 
 }

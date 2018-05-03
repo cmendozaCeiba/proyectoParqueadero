@@ -24,4 +24,7 @@ public class Constante {
 	public static final double CILINDRAJE = 500;
 	public static final int COBRO_POR_CILINDRAJE = 2000;
 	
+	public static final String ESTADO_INGRESO = "I";
+	public static final String ESTADO_SALIDA = "S";
+	
 }

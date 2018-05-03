@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.com.parqueadero.constante.Constante;
 import co.com.parqueadero.dominio.regla.CalcularValorAPagar;
 import co.com.parqueadero.dominio.regla.ReglaVigilante;
 import co.com.parqueadero.dominio.regla.ValidarPlaca;
 import co.com.parqueadero.dominio.regla.VerificarDisponibilidad;
 import co.com.parqueadero.dominio.repositorio.RepositorioParqueadero;
-import co.com.parqueadero.persistencia.builder.VehiculoBuilder;
+import co.com.parqueadero.persistencia.convertidor.VehiculoAParqueaderoEntity;
 import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
 import co.com.parqueadero.persistencia.repositorio.RepositorioParqueaderoPersistente;
 
@@ -31,11 +32,11 @@ public class Vigilante {
 		reglasIngreso.forEach(regla -> regla.ejecutarRegla(vehiculoIngresar));
 		Parqueadero.getInstance().agregarIngreso(vehiculoIngresar);
 		vehiculoIngresar.setFechaIngreso(LocalDateTime.now());
-		repositorioParqueo.guardarIngresoParqueo(VehiculoBuilder.convertirParqueaderoEntity(vehiculoIngresar, "I"));
+		repositorioParqueo.guardarIngresoParqueo(VehiculoAParqueaderoEntity.convertirParqueaderoEntity(vehiculoIngresar, Constante.ESTADO_INGRESO));
 		
 	}
 	
-	public void salidaVehiculo(Vehiculo vehiculoSalida) {
+	public ParqueaderoEntity salidaVehiculo(Vehiculo vehiculoSalida) {
 		
 		reglasSalida.forEach(reglaSalida -> reglaSalida.ejecutarRegla(vehiculoSalida));
 		Parqueadero.getInstance().agregarSalida(vehiculoSalida);
@@ -44,9 +45,9 @@ public class Vigilante {
 		
 		parqueoSalida.setMontoCobrado(vehiculoSalida.getMontoCobrar());
 		parqueoSalida.setFechaSalida(vehiculoSalida.getFechaSalida());
-		parqueoSalida.setEstado("S");
+		parqueoSalida.setEstado(Constante.ESTADO_SALIDA);
 		
-		repositorioParqueo.guardarSalidaParqueo(parqueoSalida);
+		return repositorioParqueo.guardarSalidaParqueo(parqueoSalida);
 	}
 	
 }

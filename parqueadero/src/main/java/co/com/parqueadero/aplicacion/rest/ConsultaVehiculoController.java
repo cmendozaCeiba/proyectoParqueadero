@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.parqueadero.dominio.Vehiculo;
+import co.com.parqueadero.dominio.ParqueaderoApi;
 import co.com.parqueadero.dominio.repositorio.RepositorioParqueadero;
-import co.com.parqueadero.persistencia.builder.ConvertirParqueaderEntityAVehiculo;
+import co.com.parqueadero.persistencia.convertidor.ListaParqueaderoEntityAListaParqueaderoApi;
 import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
 
 @CrossOrigin(origins ="*")
@@ -23,13 +23,13 @@ public class ConsultaVehiculoController {
 	RepositorioParqueadero repositorioParqueadero;
 
 	@Autowired
-	private ConvertirParqueaderEntityAVehiculo convertirParqueaderoEntityAVehiculo;
+	private ListaParqueaderoEntityAListaParqueaderoApi parqueaderoEntityAParqueaderoApi;
 	
 	@RequestMapping(value="/listarVehiculos", 
 				method=RequestMethod.GET)
 	public ResponseEntity<?> listarVehiculos() {
 		
 		List<ParqueaderoEntity> parqueos = repositorioParqueadero.listarParqueos();
-		return new ResponseEntity<List<Vehiculo>>(convertirParqueaderoEntityAVehiculo.convert(parqueos), HttpStatus.OK);
+		return new ResponseEntity<List<ParqueaderoApi>>(parqueaderoEntityAParqueaderoApi.convert(parqueos), HttpStatus.OK);
 	}
 }
