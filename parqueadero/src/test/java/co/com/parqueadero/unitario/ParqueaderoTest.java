@@ -1,11 +1,11 @@
 package co.com.parqueadero.unitario;
 
+import java.time.LocalDateTime;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
+import co.com.parqueadero.databuilder.ParqueaderoEntityBuilder;
 import co.com.parqueadero.dominio.repositorio.RepositorioParqueadero;
 import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
 import co.com.parqueadero.persistencia.repositorio.RepositorioParqueaderoPersistente;
@@ -22,13 +22,14 @@ public class ParqueaderoTest {
 	@Test
 	public void guardarParqueoMoto() {
 		// arrange
-		ParqueaderoEntity parqueaderoEntity = new ParqueaderoEntity(LocalDateTime.now(),TIPO_VEHICULO_MOTO, null, 0.0, ESTADO_INGRESO, PLACA_GUARDAR);
+		ParqueaderoEntity parqueaderoEntity = new ParqueaderoEntityBuilder().conTipoVehiculo(TIPO_VEHICULO_MOTO).build();
 		
 		// act
-		repositorioParqueo.guardarIngresoParqueo(parqueaderoEntity);
+		ParqueaderoEntity parqueo = repositorioParqueo.guardarIngresoParqueo(parqueaderoEntity);
 		
 		// Assert
-		Assert.assertTrue(repositorioParqueo.existeParqueo(parqueaderoEntity));
+		Assert.assertNotNull(parqueo);
+		Assert.assertEquals(TIPO_VEHICULO_MOTO, parqueo.getTipoVehiculo());
 	}
 	
 	@Test

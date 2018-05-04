@@ -27,12 +27,12 @@ public class Vigilante {
 		reglasSalida.add(new CalcularValorAPagar());
 	}
 
-	public void ingresarVehiculo(Vehiculo vehiculoIngresar) {
+	public ParqueaderoEntity ingresarVehiculo(Vehiculo vehiculoIngresar) {
 		
 		reglasIngreso.forEach(regla -> regla.ejecutarRegla(vehiculoIngresar));
 		Parqueadero.getInstance().agregarIngreso(vehiculoIngresar);
 		vehiculoIngresar.setFechaIngreso(LocalDateTime.now());
-		repositorioParqueo.guardarIngresoParqueo(VehiculoAParqueaderoEntity.convertirParqueaderoEntity(vehiculoIngresar, Constante.ESTADO_INGRESO));
+		return repositorioParqueo.guardarIngresoParqueo(VehiculoAParqueaderoEntity.convertirParqueaderoEntity(vehiculoIngresar, Constante.ESTADO_INGRESO));
 		
 	}
 	

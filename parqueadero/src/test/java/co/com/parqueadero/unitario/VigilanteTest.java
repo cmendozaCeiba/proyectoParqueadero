@@ -1,75 +1,79 @@
 package co.com.parqueadero.unitario;
 
-import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.mock;
-
-import co.com.parqueadero.constante.Constante;
+import co.com.parqueadero.databuilder.ParqueaderoEntityBuilder;
 import co.com.parqueadero.dominio.Carro;
-import co.com.parqueadero.dominio.Moto;
+import co.com.parqueadero.dominio.Parqueadero;
 import co.com.parqueadero.dominio.Vehiculo;
 import co.com.parqueadero.dominio.Vigilante;
 import co.com.parqueadero.dominio.repositorio.RepositorioParqueadero;
-import co.com.parqueadero.exception.ParqueaderoException;
+import co.com.parqueadero.persistencia.convertidor.VehiculoAParqueaderoEntity;
 import co.com.parqueadero.persistencia.entidad.ParqueaderoEntity;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
 public class VigilanteTest {
 
+	private static final String PLACA = "SRT05A";
+	
 	@Mock
 	private RepositorioParqueadero repositorioParqueadero;
-	
 	@Mock
+	private VehiculoAParqueaderoEntity vehiculoAParqueaderoEntity;
+	@Mock
+	private Parqueadero parqueadero;
+	@Mock
+	private ParqueaderoEntity parqueaderoEntity;
+	
+	@InjectMocks
 	private Vigilante vigilante;
 	
-	private static final String PLACA = "sdd215";
-	private static final int CILINDRAJE = 800;
-	
 	@Test
-	@Ignore
-	public void ingresarVehiculoMotoMayorCapacidadTest() {
+	public void ingresarVehiculoTest() {
+		ParqueaderoEntityBuilder parqueaderoEntityBuilder =  new ParqueaderoEntityBuilder();
+		ParqueaderoEntity parqueaderoEntity = parqueaderoEntityBuilder.build();
 			
-			ParqueaderoEntity parqueaderoEntity =  mock(ParqueaderoEntity.class);
-		
-			when(repositorioParqueadero.consultarParqueoPorPlaca(PLACA)).thenReturn(parqueaderoEntity);
+			when(repositorioParqueadero.guardarIngresoParqueo(any(ParqueaderoEntity.class))).thenReturn(parqueaderoEntity);
 			
-//				Vehiculo vehiculo = new Moto(PLACA, CILINDRAJE,0.0, LocalDateTime.now(), null);
-//				
-//				vigilante.ingresarVehiculo(vehiculo);
-//			
-			Assert.assertFalse(repositorioParqueadero.existeParqueo(parqueaderoEntity));
+			Vehiculo vehiculo = new Carro("rtu",0.0, LocalDateTime.now(), null);
 			
-//			Assert.assertEquals(Constante.MENSAJE_PARQUEADERO_LLENO_MOTO, pe.getMessage());
+			ParqueaderoEntity parqueaderoRecibido = vigilante.ingresarVehiculo(vehiculo);
+				
+			verify(repositorioParqueadero, atLeast(1)).guardarIngresoParqueo(any(ParqueaderoEntity.class));
+				
+			Assert.assertNotNull(parqueaderoRecibido);
+			Assert.assertEquals("Carro", parqueaderoRecibido.getTipoVehiculo());
+			
 	}
 	
 	
 	@Test
-	@Ignore
-	public void ingresarVehiculoCarroMayorCapacidadTest() {
-		try {
-
-			for(int i=0;i<21;i++) {
-				Vehiculo vehiculo = new Carro(PLACA, 0.0, LocalDateTime.now(), null);
-				
-				vigilante.ingresarVehiculo(vehiculo);
-			}
-			
-			fail();
-			
-		}catch(ParqueaderoException pe) {
-			Assert.assertEquals(Constante.MENSAJE_PARQUEADERO_LLENO_CARRO, pe.getMessage());
-		}
+	public void salidaVehiculo() {
+		ParqueaderoEntityBuilder parqueaderoEntityBuilder =  new ParqueaderoEntityBuilder();
+		ParqueaderoEntity parqueaderoEntity = parqueaderoEntityBuilder.build(); // new ParqueaderoEntity(LocalDateTime.now(), "Carro", null, 0, "I","rtu");
+		
+		when(repositorioParqueadero.consultarParqueoPorPlaca(any())).thenReturn(parqueaderoEntity);
+		
+		when(repositorioParqueadero.guardarSalidaParqueo(any(ParqueaderoEntity.class))).thenReturn(parqueaderoEntity);
+		
+		Vehiculo vehiculo = new Carro("rtu",0.0, LocalDateTime.now(), LocalDateTime.now());
+		
+		ParqueaderoEntity parqueo = vigilante.salidaVehiculo(vehiculo);
+		
+		Assert.assertNotNull(parqueo);
+		Assert.assertEquals(PLACA, parqueo.getPlaca());
+		
 	}
 }

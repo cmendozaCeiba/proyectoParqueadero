@@ -17,15 +17,14 @@ public class ValidarPlaca implements ReglaVigilante{
 	public void ejecutarRegla(Vehiculo vehiculo) {
 		
 		if(vehiculo instanceof Carro && vehiculo.getPlaca().toUpperCase().codePointAt(ZERO) == A.codePointAt(ZERO)
-				&& !esDomingoOLunes()) {
+				&& !esDomingoOLunes(LocalDate.now())) {
 			
 			throw new ParqueaderoException(Constante.MENSAJE_VEHICULO_NO_VALIDO);
 		}
 	}
 		
 
-	private boolean esDomingoOLunes() {
-		LocalDate fechaActual = LocalDate.now();
+	public boolean esDomingoOLunes(LocalDate fechaActual) {
 		return fechaActual.getDayOfWeek().equals(DayOfWeek.SUNDAY) || fechaActual.getDayOfWeek().equals(DayOfWeek.MONDAY);
 	}
 
