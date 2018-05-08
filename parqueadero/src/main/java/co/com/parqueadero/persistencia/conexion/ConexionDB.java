@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 public class ConexionDB {
 
 	private static final String UNIDAD_DE_PERSISTENCIA = "parqueadero-persistence";
-	private EntityManager entityManager;
+	private static EntityManager entityManager;
 	
 	public ConexionDB() {
 		obtenerEntityManager();
