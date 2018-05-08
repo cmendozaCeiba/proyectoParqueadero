@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ParqueaderoService } from './app.parqueadero.service';
 import { Parqueadero } from './app.parqueadero';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgModalGeneric } from './modal/modal.component';
 
 @Component({
   selector: 'app-root',
@@ -21,11 +22,12 @@ export class AppComponent implements OnInit{
 
 
   constructor(private parqueaderoService: ParqueaderoService,
-              private formBuilder: FormBuilder
+              private formBuilder: FormBuilder,
+              private modalGeneric: NgModalGeneric
   ){
     this.formGroup = formBuilder.group({
       'placa': [null, Validators.required],
-      'cilindraje':''
+      'cilindraje': ['']
     });
   }
 
@@ -48,6 +50,7 @@ export class AppComponent implements OnInit{
     this.parqueaderoService.crearParqueo(this.parqueoAgregar)
     .subscribe(data => console.log(data), error => console.log(error));
     this.alert = true;
+    this.obtenerParqueos();
   }
 
   setData(data){
@@ -60,6 +63,7 @@ export class AppComponent implements OnInit{
     console.log(parqueoSalida);
     this.parqueaderoService.salidaParqueo(parqueoSalida)
     .subscribe(data => console.log(data), error => console.log(error));
+    this.modalGeneric.open(NgModalGeneric);
   }
 
 }

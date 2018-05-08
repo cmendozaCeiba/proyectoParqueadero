@@ -46,7 +46,7 @@
     <td>{{parqueo.fechaIngreso}}</td>
     <td> {{parqueo.estado}}
     </td>
-    <td><button (click)="salidaVehiculo(parqueo)" class="btn btn-secondary">Salida</button></td>
+    <td ng-disabled="parqueo.estado == 'I'"><button (click)="salidaVehiculo(parqueo)" class="btn btn-secondary">Salida</button></td>
   </tr>
 </tbody>
 

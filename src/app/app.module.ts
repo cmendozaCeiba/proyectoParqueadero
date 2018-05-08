@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgModalGeneric } from './modal/modal.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { HttpModule } from '@angular/http';
     BrowserModule,
     HttpModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule.forRoot(),
+    NgModalGeneric
   ],
   providers: [],
   bootstrap: [AppComponent]
